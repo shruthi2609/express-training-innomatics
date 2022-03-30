@@ -10,7 +10,8 @@ console.log(req)
 res.send("home page")
 })
 app.get("/products",(req,res)=>{
-   /* const data=[
+    console.log(req)
+   const data=[
         {
             prname:"iphone",
             price:120000
@@ -19,7 +20,7 @@ app.get("/products",(req,res)=>{
             prname:"samsung",
             price:80000 
         }
-    ]*/
+    ]
     res.status(200).send(JSON.stringify(data))
 })
 app.get("/signup",(req,res)=>{
@@ -29,6 +30,7 @@ app.get("/signup",(req,res)=>{
 //handle data with req 
 
 app.get("/search",(req,res)=>{
+    console.log(req)
     const querydata=req.query
     const data=[
         {
