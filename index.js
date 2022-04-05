@@ -21,7 +21,7 @@ app.get("/products",(req,res)=>{
             price:80000 
         }
     ]
-    res.status(200).send(JSON.stringify(data))
+    res.status(200).send(data)
 })
 app.get("/signup",(req,res)=>{
    // res.send("<h1>Signup Form</h1>")
@@ -30,8 +30,9 @@ app.get("/signup",(req,res)=>{
 //handle data with req 
 
 app.get("/search",(req,res)=>{
-    console.log(req)
+    
     const querydata=req.query
+    console.log(querydata)
     const data=[
         {
             uname:"john",
@@ -59,6 +60,7 @@ app.get("/finduser/uname",(req,res)=>{
 })
 
 app.get("/finduser/:uname/:location",(req,res)=>{
+    console.log(req)
     const paramsdata=req.params
 
     const data=[
