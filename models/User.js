@@ -1,6 +1,8 @@
 const mongoose=require("mongoose")
 mongoose.connect("mongodb+srv://cram_js:test123@cluster0.zdsqd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").then(()=>console.log("connected to db successfully")).catch((err)=>console.log("connection failed due to ",err))
-const customer=mongoose.model("Customer",{
+const bcrypt=require("bcrypt")
+const customerschema=mongoose.Schema(
+{
     email:{
         type:String,
         unique:true
@@ -10,8 +12,40 @@ const customer=mongoose.model("Customer",{
     pincode:Number,
     country:String,
     address:String
+}
+)
 
-})
+//custom methods - schema.methods
+customerschema.methods.signUp=async function(){
+    const user=this
+    console.log(user)
+    if(user.address===""){
+        console.log("condition")
+        user.address=user.area+" "+user.pincode+" "+user.country
+    }
+    user.password=await bcrypt.hash(user.password,5)
+    console.log(user)
+    return user.save()
+    
+}
+//statics method for login
+customerschema.statics.signIn=async function(useremail,userpassword){
+    const fetch=await customer.findOne({email:useremail})
+    if(fetch){
+        const decrypt=await bcrypt.compare(userpassword,fetch.password)
+    
+        if(decrypt){
+            return {"msg":"logged in successfully","status":true,"errcode":200}
+        }
+        else{
+          return {"msg":"check your passoword","status":false,"errcode":404}
+        }
+    }
+    else{
+        return {msg:"email does not exists","errcode":404}
+    }
+}
+const customer=mongoose.model("Customer",customerschema)
 
 /*const book1=new Book({
     bookname:"Abc",
