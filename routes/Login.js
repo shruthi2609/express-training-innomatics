@@ -2,7 +2,7 @@ const express=require("express")
 const router=express.Router()//1st step
 const customer=require("../models/User")
 const bcrypt=require("bcrypt")
-router.post("/signin",async (req,res)=>{
+router.post("/login",async (req,res)=>{
     const ipdata=req.body
     const fetch=await customer.findOne({email:ipdata.email})
     if(fetch){

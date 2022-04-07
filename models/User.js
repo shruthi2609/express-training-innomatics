@@ -35,14 +35,14 @@ customerschema.statics.signIn=async function(useremail,userpassword){
         const decrypt=await bcrypt.compare(userpassword,fetch.password)
     
         if(decrypt){
-            return {"msg":"logged in successfully","status":true,"errcode":200}
+            return {"msg":"logged in successfully","status":true,"errcode":200,"id":fetch._id}
         }
         else{
           return {"msg":"check your passoword","status":false,"errcode":404}
         }
     }
     else{
-        return {msg:"email does not exists","errcode":404}
+        return {msg:"email does not exists","errcode":404,"status":false}
     }
 }
 const customer=mongoose.model("Customer",customerschema)
