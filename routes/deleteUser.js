@@ -2,7 +2,8 @@ const express=require("express")
 const router=express.Router()//1st step
 const customer=require("../models/User")
 const bcrypt=require("bcrypt")
-router.post("/delete",async (req,res)=>{
+const authorize=require("../middlewares/authorize")
+router.post("/delete",authorize,async (req,res)=>{
     const ipdata=req.body
     const loginstatus=await customer.signIn(ipdata.email,ipdata.password)
     console.log(loginstatus)
@@ -27,5 +28,14 @@ router.post("/deleteUser",async (req,res)=>{
     else{
         res.send("err")
     }
+})
+//delete with authorization
+router.post("/del",authorize,async (req,res)=>{
+         const token=req.decodedtoken
+         console.log(token)
+        const deleted=await customer.findOneAndDelete({email:token})
+        console.log(deleted)
+        res.send("dummy")
+   
 })
 module.exports=router

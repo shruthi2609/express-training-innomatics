@@ -5,7 +5,6 @@ const bcrypt=require("bcrypt")
 router.post("/signin",async (req,res)=>{
     const ipdata=req.body
     const loginstatus=await customer.signIn(ipdata.email,ipdata.password)
-   console.log(loginstatus)
    if(loginstatus){
        res.status(loginstatus.errcode).send(loginstatus)
    }
