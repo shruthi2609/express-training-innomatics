@@ -1,5 +1,7 @@
 const express=require("express")
 const app=express()
+const cors=require("cors")
+app.use(cors())
 //add the middleware to our express app
 const bodyparser=require("body-parser")
 const signup=require("./routes/Registration")//route
@@ -8,6 +10,8 @@ const create=require("./routes/SignUp")//custom
 const login=require("./routes/Login")//route
 const updatepassword=require("./routes/updatePassword")
 const deleteUser=require("./routes/deleteUser")
+const dotenv=require("dotenv")
+dotenv.config()
 app.use(bodyparser.json())
 app.use("/",signup)
 app.use("/",signin)

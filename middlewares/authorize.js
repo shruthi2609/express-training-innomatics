@@ -5,7 +5,7 @@ const authorize=(req,res,next)=>{
     //email password upassword
     const reqtoken=req.headers["authorization"]
     const token=reqtoken.replace("Bearer ","")
-    const decodedtoken=jwt.verify(token,"jamesbond")
+    const decodedtoken=jwt.verify(token,process.env.JWT_KEY)
     req.decodedtoken=decodedtoken
     next()
 }
