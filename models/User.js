@@ -32,6 +32,7 @@ customerschema.methods.signUp=async function(){
 //statics method for login
 customerschema.statics.signIn=async function(useremail,userpassword){
     const fetch=await customer.findOne({email:useremail})
+    console.log("pasword",fetch.password)
     if(fetch){
         const decrypt=await bcrypt.compare(userpassword,fetch.password)
         if(decrypt){

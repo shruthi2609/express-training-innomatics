@@ -28,10 +28,12 @@ router.post("/changepw",async (req,res)=>{
     const reqtoken=req.headers["authorization"]
     const token=reqtoken.replace("Bearer ","")
     const decodedtoken=jwt.verify(token,process.env.JWT_KEY)
-     updatedpassword=await bcrypt.hash(ipdata.upassword,5)
+    console.log(decodedtoken) 
+    updatedpassword=await bcrypt.hash(ipdata.upassword,5)
         //customer.findByIdAndUpdate(loginstatus.id,{password:updatedpassword})
         const update=await customer.findOneAndUpdate({email:decodedtoken},{password:updatedpassword})
-        res.status(200).send("updated successfully")
+        console.log(update)
+        res.status(200).send({"msg":"updated successfully"})
     }
     catch(err){
         res.status(400).send({"msg":"bad token"})
