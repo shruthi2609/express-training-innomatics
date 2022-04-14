@@ -12,8 +12,8 @@ GoogleUser.findById(id,(err,doc)=>{
 })
 })
 passport.use(new GoogleStrategy({
-    clientID:"322047884994-i5jbbgdkboc79a461kje69n5m778vb8j.apps.googleusercontent.com",
-    clientSecret:"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",
+    clientID:"",
+    clientSecret:"",
     callbackURL: "/auth/google/callback",
 },function(request, accessToken, refreshToken, profile, done){
     console.log(profile)
